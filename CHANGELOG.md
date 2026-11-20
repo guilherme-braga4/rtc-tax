@@ -8,3 +8,4 @@
   each with database V0073; run both with Temurin 25.0.5.1+2.
 - Verify pinned source and Maven artifacts and exercise the installed SDK from
   a separate Node HTTP server in both local and remote modes.
+- Preserve LF line endings in checksum manifests and shell scripts on Windows.

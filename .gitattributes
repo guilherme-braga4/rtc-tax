@@ -1,0 +1,4 @@
+# Keep build scripts and checksum manifests byte-identical on every platform.
+* text=auto eol=lf
+*.sh text eol=lf
+*.sha256 text eol=lf
