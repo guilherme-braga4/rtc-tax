@@ -1,0 +1,64 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  unit:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [20, 22, 24, 26]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run test:integration
+      - run: npm run test:multiprocess
+      - run: npm run test:artifacts
+      - run: RTC_REMOTE_FROM_IMAGES=1 node --test test/remote-official.mjs
+      - name: Test installed SDK in Node server with local engines
+        run: RTC_SERVER_MODE=local npm run test:installed-server
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Prepare official engines for the installed server test
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="$RUNNER_TEMP/rtc-tax-engines"
+          for engine in regular simples; do
+            mkdir -p "$root/$engine/target" "$root/$engine/calculadora/db"
+            if [ "$engine" = regular ]; then
+              image=rtc-tax-regular:32df7196356e-r7
+              jar=api-regime-geral.jar
+            else
+              image=rtc-tax-simples:f90b6525e6d5-r7
+              jar=api-simples-nacional.jar
+            fi
+            container=$(docker create "$image")
+            trap 'docker rm -f "$container" >/dev/null 2>&1 || true' EXIT
+            docker cp "$container:/work/app.jar" "$root/$engine/target/$jar"
+            docker cp "$container:/work/calculadora/db/calculadora-pro.db" "$root/$engine/calculadora/db/calculadora-pro.db"
+            docker rm "$container" >/dev/null
+            trap - EXIT
+          done
+      - name: Test the installed package in a Node HTTP server
+        run: RTC_JAVA_BIN="$JAVA_HOME/bin/java" npm run test:installed-server
+        env:
+          RTC_SPIKE_SOURCES: ${{ runner.temp }}/rtc-tax-engines

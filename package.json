@@ -1,0 +1,58 @@
+{
+  "name": "@rtc-tax/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript client for Brazil's official RTC tax calculators",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "examples",
+    "docs/feasibility-spike.md",
+    "README.md",
+    "README.pt-BR.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md",
+    "docs/third-party",
+    "docs/versions-and-integrity.md",
+    "assets"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/clients.test.mjs test/coordination.test.mjs test/installed-cleanup.test.mjs",
+    "test:integration": "npm run build && node --test test/integration/official.test.mjs",
+    "test:installed-server": "npm run build && node --test test/installed-server.check.mjs",
+    "test:multiprocess": "npm run build && node --test test/multiprocess.check.mjs",
+    "test:artifacts": "npm run build && node --test test/artifact-integrity.check.mjs",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "lossless-json": "4.3.4",
+    "proper-lockfile": "4.1.2",
+    "tar": "7.5.23"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/proper-lockfile": "4.1.4",
+    "typescript": "~5.9.3"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guilherme-braga4/rtc-tax.git"
+  },
+  "homepage": "https://github.com/guilherme-braga4/rtc-tax#readme",
+  "bugs": {
+    "url": "https://github.com/guilherme-braga4/rtc-tax/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
