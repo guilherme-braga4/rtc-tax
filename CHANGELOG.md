@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.0 — 2026-11-20
+
 - Initial work on clients for the official Regime Regular and Simples Nacional
   engines, plus a Docker-based local manager and remote mode.
 - Pin Regime Regular 1.7.2 and the official Simples Nacional 1.0.2 revision,

@@ -2,7 +2,7 @@
 
 Source: [Trello decisions](https://trello.com/c/3bQcAi9l/2-decisoes-mvp-v010-somente-regime-regular-simples-nacional), Discovery v1.1.
 
-- [ ] Installable npm package, published only after explicit authorization.
+- [x] Installable npm package, published after explicit authorization.
 - [x] Local SDK starts either official calculator lazily with operational Docker,
       and reproduces one reference calculation per engine without manual Docker commands.
 - [x] Remote mode works for both engines without Docker.
@@ -13,8 +13,8 @@ Source: [Trello decisions](https://trello.com/c/3bQcAi9l/2-decisoes-mvp-v010-som
 - [x] Unit and integration tests, CI and bilingual documentation are reproducible.
 - [x] Project independence from Receita Federal is explicit.
 
-Only Regime Regular and Simples Nacional are in this release. The current SDK
-is pre-release: independent provenance of the first Maven artifact lock,
+Only Regime Regular and Simples Nacional are in this release. The published MVP
+still has open limitations: independent provenance of the first Maven artifact lock,
 license obligations for possible image redistribution, local Docker validation on Windows and release verification remain
 open. Cross-process coordination and stale lease recovery were tested for one
 host and user; missing or inconsistent ownership state fails closed and can

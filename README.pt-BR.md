@@ -4,8 +4,11 @@ SDK TypeScript em desenvolvimento para as calculadoras oficiais do Regime
 Regular e do Simples Nacional. Projeto independente, sem afiliação ou endosso
 da Receita Federal. Os cálculos são realizados pelos motores oficiais.
 
-**Status: pré-lançamento; não publicado nem pronto para produção.** O exemplo
-utiliza dados sintéticos e alíquotas simuladas no Regime Regular.
+**Status: MVP v0.1.0 publicado no npm.** Consulte as limitações de integridade,
+ciclo de vida e plataformas antes de usar em produção. O exemplo utiliza dados
+sintéticos e alíquotas simuladas no Regime Regular.
+
+Instale o pacote público com `npm install @rtc-tax/sdk@0.1.0`.
 
 ## Execução no repositório
 
@@ -52,4 +55,4 @@ Use `npm test` para testes unitários e `npm run test:integration` para executar
 os cálculos reais no modo local. `npm run test:installed-server` instala o
 pacote em um servidor HTTP Node separado; configure `RTC_SERVER_MODE=local`
 para usar os motores Docker, ou consulte os pré-requisitos do modo remoto no
-relatório do spike. O pacote ainda não foi publicado no npm.
+relatório do spike.

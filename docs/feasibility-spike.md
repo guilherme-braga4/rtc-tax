@@ -68,7 +68,7 @@ engines; this mode requires an operational Docker Engine and the first run build
 the pinned images. Both modes passed on macOS ARM64 on 19 November 2026 with
 Regular 1.7.2 and Simples 1.0.2 at the pinned commit. Local mode
 also checks that closing the server stops both managed containers. The test
-requires npm registry access for dependencies and never publishes a package.
+requires npm registry access for dependencies and never publishes a package. On 20 November 2026, after authorized publication, the same Node server test installed `@rtc-tax/sdk@0.1.0` directly from the public npm registry and both local calculations passed.
 Both installed-server modes also passed on the GitHub-hosted Ubuntu x64 runner in [CI run 44763770433](https://github.com/guilherme-braga4/rtc-tax/actions/runs/44763770433).
 
 On 19 November, two independent Node processes were tested concurrently against

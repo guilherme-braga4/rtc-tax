@@ -1,13 +1,15 @@
 # RTC Tax
 
-A pre-release TypeScript SDK for the official Brazilian RTC Regime Regular and
+A TypeScript SDK for the official Brazilian RTC Regime Regular and
 Simples Nacional calculators. This independent project is not affiliated with
 or endorsed by Receita Federal. It delegates all tax calculations to the
 upstream engines and does not implement tax rules.
 
-**Status: development, not published or production-ready.** The implementation
-has outstanding artifact-integrity, lifecycle and platform validation described
-below. The example uses synthetic data and simulated Regular rates.
+**Status: MVP v0.1.0 is published on npm.** It has outstanding artifact-integrity,
+lifecycle and platform validation described below; assess these limits before
+production use. The example uses synthetic data and simulated Regular rates.
+
+Install the public package with `npm install @rtc-tax/sdk@0.1.0`.
 
 ## Development quickstart
 
@@ -24,7 +26,7 @@ node examples/calculate.mjs
 ```
 
 The example uses the package's self-reference, as an installed consumer would.
-The package is not yet available on npm. See [Portuguese documentation](README.pt-BR.md).
+See [Portuguese documentation](README.pt-BR.md).
 
 ```ts
 import { RTCTax } from '@rtc-tax/sdk';
