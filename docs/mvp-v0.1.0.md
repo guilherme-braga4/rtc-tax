@@ -10,12 +10,12 @@ Source: [Trello decisions](https://trello.com/c/3bQcAi9l/2-decisoes-mvp-v010-som
 - [ ] Container lifecycle is idempotent across concurrent consumers, does not stop
       unrelated containers, binds locally, and survives failures safely.
 - [ ] Official versions, database, artifact integrity and licenses documented and verified.
-- [ ] Unit and integration tests, CI and bilingual documentation are reproducible.
+- [x] Unit and integration tests, CI and bilingual documentation are reproducible.
 - [x] Project independence from Receita Federal is explicit.
 
 Only Regime Regular and Simples Nacional are in this release. The current SDK
 is pre-release: independent provenance of the first Maven artifact lock,
-license obligations for possible image redistribution, Windows/platform validation and release verification remain
+license obligations for possible image redistribution, local Docker validation on Windows and release verification remain
 open. Cross-process coordination and stale lease recovery were tested for one
 host and user; missing or inconsistent ownership state fails closed and can
 require manual inspection. Check results in [the spike report](feasibility-spike.md)

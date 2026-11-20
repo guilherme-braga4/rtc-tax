@@ -79,5 +79,4 @@ SHA-256 pinned. Builds use the verified artifact set offline. The lock is a
 trust-on-first-capture baseline, and a local image tag is checked by label, not
 an externally verified image digest. See [versions and integrity](docs/versions-and-integrity.md)
 and the [license inventory](docs/third-party/README.md). Both engines use pinned V0073 database snapshots; they are not guaranteed current. The Simples client uses an upstream classic endpoint marked obsolete; see the spike report. Startup may take several minutes. Only the tested
-platforms and Node versions reported in the spike are confirmed; CI is intended
-to cover additional Node versions but is not evidence until it runs.
+platforms and Node versions reported in the spike are confirmed. Hosted CI passed on Linux, macOS and Windows for unit tests, and on Ubuntu for both installed-server integration modes; local Docker execution on Windows remains unverified.

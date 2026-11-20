@@ -22,14 +22,11 @@ explicit owner authorization for each push, npm publication and release.
 
 See [the spike report](feasibility-spike.md), [integrity notes](versions-and-integrity.md)
 and [license inventory](third-party/README.md) for scope, test results, provenance
-and limitations. The SDK-installed Node HTTP server must pass in both modes for
-this exact candidate. Windows and GitHub-hosted CI results must be observed, not
-inferred from workflow configuration. The npm scope and publishing account must
+and limitations. [CI run 44763770433](https://github.com/guilherme-braga4/rtc-tax/actions/runs/44763770433) passed the Node unit matrix on Windows, macOS and Linux and both installed-server modes on Ubuntu x64. The local Docker lifecycle was not tested on Windows. The npm scope and publishing account must
 be verified: the current environment is not authenticated to npm. A registry
 404 for this package does not prove that a scope belongs to the owner.
 
-The GitHub repository has no default-branch commit yet. Hosted CI needs an
-explicitly authorized push of the reviewed commit; npm publication and a GitHub
+The reviewed candidate and CI fix were pushed to the GitHub default branch. npm publication and a GitHub
 release need separate explicit owner authorization. Record their actual results
 before calling the release complete. Do not publish generated Docker images as
 part of this release; their third-party license and source obligations require

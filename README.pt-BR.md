@@ -40,7 +40,7 @@ inspeção manual. A coordenação entre hosts ou usuários diferentes não é
 oferecida.
 
 Os artefatos Maven estão fixados por SHA-256; a primeira captura do conjunto
-ainda é uma fonte de confiança. Há limites na validação entre plataformas;
+ainda é uma fonte de confiança. O CI hospedado passou nos testes unitários em Linux, macOS e Windows e nos testes dos motores em Ubuntu. A execução local com Docker no Windows ainda não foi validada;
 consulte [versões e integridade](docs/versions-and-integrity.md), o
 [inventário de licenças](docs/third-party/README.md), o
 [relatório do spike](docs/feasibility-spike.md) e o [README em inglês](README.md).

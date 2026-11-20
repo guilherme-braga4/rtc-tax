@@ -69,13 +69,13 @@ the pinned images. Both modes passed on macOS ARM64 on 19 November 2026 with
 Regular 1.7.2 and Simples 1.0.2 at the pinned commit. Local mode
 also checks that closing the server stops both managed containers. The test
 requires npm registry access for dependencies and never publishes a package.
-The CI workflow includes both modes; the remote CI run is not yet verified.
+Both installed-server modes also passed on the GitHub-hosted Ubuntu x64 runner in [CI run 44763770433](https://github.com/guilherme-braga4/rtc-tax/actions/runs/44763770433).
 
 On 19 November, two independent Node processes were tested concurrently against
 a single Regular container. After one process closed and another was killed,
 a third recovered the stale lease and the final close stopped the container.
 Unit tests also check refusal to stop a container whose ownership is uncertain.
 The unit suite passed on macOS ARM64/Node 24 and in Linux ARM64 containers with
-Node 20, 22, 24 and 26. Windows and GitHub-hosted CI remain unverified.
+Node 20, 22, 24 and 26. The same 15 unit tests passed in hosted CI for all four Node versions on Linux, macOS and Windows. Local Docker lifecycle and official-engine integration were tested on macOS ARM64 and hosted Ubuntu x64; local Docker execution on Windows was not tested.
 
-A previous combination (Regular 1.7.2 and Simples 0.0.6) was also probed in Linux AMD64 emulation. The current Simples revision has not been validated in a full clean SDK build and installed-server test on a native AMD64 host.
+The current pinned pair was built from its official sources and exercised through the installed SDK on the GitHub-hosted Ubuntu x64 runner. An older combination was also probed under Linux AMD64 emulation on an ARM64 host.
