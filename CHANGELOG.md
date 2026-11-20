@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Document requirements, installation, a verified usage example, the roadmap
+  and how to report feedback in both READMEs; add npm keywords.
+
 ## 0.1.0 — 2026-11-20
 
 - Initial work on clients for the official Regime Regular and Simples Nacional

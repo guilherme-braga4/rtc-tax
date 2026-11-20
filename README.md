@@ -1,44 +1,61 @@
 # RTC Tax
 
-A TypeScript SDK for the official Brazilian RTC Regime Regular and
-Simples Nacional calculators. This independent project is not affiliated with
-or endorsed by Receita Federal. It delegates all tax calculations to the
-upstream engines and does not implement tax rules.
+[Português](README.pt-BR.md)
 
-**Status: MVP v0.1.0 is published on npm.** It has outstanding artifact-integrity,
-lifecycle and platform validation described below; assess these limits before
-production use. The example uses synthetic data and simulated Regular rates.
+A TypeScript SDK to calculate CBS and IBS under Brazil's consumption tax reform
+(Reforma Tributária do Consumo) with Receita Federal's official calculators:
+Regime Regular and Simples Nacional. The SDK does not implement tax rules; all
+calculations are delegated to the official engines.
 
-Install the public package with `npm install @rtc-tax/sdk@0.1.0`.
+This independent project is not affiliated with or endorsed by Receita Federal.
 
-## Development quickstart
+> **Status: v0.1.0, experimental.** Suitable for development, testing and
+> evaluation. For production, run the official engines in your own environment
+> and use remote mode. Read the [limitations](#verification-and-limitations)
+> first.
 
-Node.js 20+ and an operational Docker Engine are required for local mode. For production, use a supported Node.js LTS release; Node 20 has reached end of life. The
-package currently exposes ESM imports; CommonJS is not supported. The
-first call to each calculator needs internet and sufficient disk space to
-retrieve and build the pinned official source and SQLite database. No manual
-Docker command is needed during SDK use.
+## Requirements
+
+- Node.js 20 or newer. For production, use a supported LTS release; Node 20 has
+  reached end of life.
+- ESM only; CommonJS is not supported.
+- **Local mode:** a running Docker Engine. On the first call to each engine,
+  the SDK downloads the official source, builds it and prepares the SQLite
+  database. This needs internet access, can take several minutes and uses
+  about 1 GB of disk per engine. After that, each new process still waits for
+  the Java engines to start (tens of seconds). No manual Docker command is
+  needed during SDK use.
+- **Remote mode:** no Docker. You host the official engines and pass their URLs.
+
+## Installation
 
 ```sh
-npm ci
-npm run build
-node examples/calculate.mjs
+npm install @rtc-tax/sdk
 ```
 
-The example uses the package's self-reference, as an installed consumer would.
-See [Portuguese documentation](README.pt-BR.md).
+## Usage
 
 ```ts
 import { RTCTax } from '@rtc-tax/sdk';
 
 const rtc = await RTCTax.local();
 try {
-  const regular = await rtc.regimeRegular.calculate(regularOperation);
-  const simples = await rtc.simplesNacional.calculate(simplesOperation);
+  const result = await rtc.regimeRegular.calculate({
+    id: '6194602ea71cbf9431c236de4409d920', versao: '1.0.0',
+    dhFatoGerador: '2027-03-10T10:00:00-03:00', municipio: 4314902, uf: 'RS',
+    itens: [{ numero: 3, nbs: '122011200', cst: '200', cClassTrib: '200028', baseCalculo: '1200.00',
+      aliquotasNominais: { cbs: '8.8', ibsEstadual: '0.05', ibsMunicipal: '0.05' } }]
+  });
+  const taxes = result.objetos[0].tribCalc?.IBSCBS?.gIBSCBS;
+  console.log(taxes?.gCBS?.vCBS, taxes?.vIBS); // "42.24" "0.48"
 } finally {
   await rtc.close();
 }
 ```
+
+The data is synthetic and the 2027 rates are supplied as simulation inputs
+(`calculoSimulado: true`). The [full example](examples/calculate.mjs) also
+calculates a Simples Nacional operation.
 
 For externally hosted services, `RTCTax.remote({ regimeRegularUrl,
 simplesNacionalUrl, timeoutMs?, headers? })` uses their base URLs and does not
@@ -54,6 +71,35 @@ stay strings. The exposed Regular input type intentionally covers the tested
 subset, not every upstream endpoint or optional field. Simples observability
 can return HTTP 200 with errors on individual items: inspect `estadoItem` and
 `erros` before relying on results.
+
+## Roadmap
+
+No dates; the order depends on feedback from people who try it.
+
+- Prebuilt engine images and a `docker-compose.yml` to make remote mode easier
+  (pending license review).
+- Optionally expose engine error details, such as an HTTP 422 body.
+- More complete types and input validation.
+- A command to prepare the engines before the first calculation.
+- The current Simples Nacional endpoint, which replaces the classic one.
+- Validate local mode on Windows.
+
+## Tried it? Tell us how it went
+
+Open an [issue](https://github.com/guilherme-braga4/rtc-tax/issues) with what
+you tried, what you expected and what happened, including installation
+problems. Reports from ERP, e-commerce or NF-e use cases help set priorities.
+Never attach real fiscal data.
+
+## Development
+
+```sh
+npm ci
+npm run build
+node examples/calculate.mjs
+```
+
+The example uses the package's self-reference, as an installed consumer would.
 
 ## Verification and limitations
 

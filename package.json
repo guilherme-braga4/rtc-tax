@@ -1,7 +1,20 @@
 {
   "name": "@rtc-tax/sdk",
   "version": "0.1.0",
-  "description": "TypeScript client for Brazil's official RTC tax calculators",
+  "description": "TypeScript client for Brazil's official RTC tax calculators (CBS and IBS, Reforma Tributária do Consumo)",
+  "keywords": [
+    "reforma-tributaria",
+    "rtc",
+    "cbs",
+    "ibs",
+    "simples-nacional",
+    "receita-federal",
+    "nfe",
+    "tax",
+    "brazil",
+    "typescript",
+    "sdk"
+  ],
   "type": "module",
   "exports": {
     ".": {
